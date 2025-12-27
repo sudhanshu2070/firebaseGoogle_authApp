@@ -1,6 +1,8 @@
 package edu.uoc.uocvirtualclass;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ClassActivity extends AppCompatActivity {
@@ -10,9 +12,15 @@ public class ClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new ClassFragment())
-                .commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new ClassFragment())
+                    .commit();
+        }
+
+        findViewById(R.id.btnAddStudent).setOnClickListener(v ->
+                startActivity(new Intent(this, AddStudentActivity.class))
+        );
     }
 }

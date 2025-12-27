@@ -5,7 +5,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataSourceFirebase extends DataSource {
 
@@ -71,6 +73,28 @@ public class DataSourceFirebase extends DataSource {
                 })
                 .addOnFailureListener(callback::onError);
     }
+
+    public void addNewStudentAsync(String studentId, String name,
+                                   Runnable onSuccess,
+                                   java.util.function.Consumer<Exception> onError) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> student = new HashMap<>();
+        student.put("id", studentId);
+        student.put("name", name);
+        student.put("level", 0);
+
+        db.collection("Student")
+                .add(student)
+                .addOnSuccessListener(documentReference -> {
+                    String firebaseId = documentReference.getId();
+                    STUDENTS.add(new ModStudent(firebaseId, studentId, name, 0));
+                    onSuccess.run();
+                })
+                .addOnFailureListener(onError::accept);
+    }
+
 
     @Override
     public void loadModel() {  }
