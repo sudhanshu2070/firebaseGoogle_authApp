@@ -1,0 +1,32 @@
+# ===============================
+# Android / Gradle
+# ===============================
+*.apk
+*.aab
+*.dex
+*.class
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration
+local.properties
+
+# Logs
+*.log
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+
+# Keystore files (VERY IMPORTANT)
+*.jks
+*.keystore
+
+# Firebase
+google-services.json
+
+# OS files
+.DS_Store
+Thumbs.db
